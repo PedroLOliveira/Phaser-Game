@@ -1,0 +1,52 @@
+{
+    "anims": [
+        {
+            "key": "walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "elite_knight",
+                    "frame": "largeeliteknight_walk_1"
+                },
+                {
+                    "key": "elite_knight",
+                    "frame": "largeeliteknight_walk_2"
+                },
+                {
+                    "key": "elite_knight",
+                    "frame": "largeeliteknight_walk_3"
+                },
+                {
+                    "key": "elite_knight",
+                    "frame": "largeeliteknight_walk_4"
+                }
+            ]
+        },
+        {
+            "key": "idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "elite_knight",
+                    "frame": "largeeliteknight_idle_1"
+                },
+                {
+                    "key": "elite_knight",
+                    "frame": "largeeliteknight_idle_2"
+                },
+                {
+                    "key": "elite_knight",
+                    "frame": "largeeliteknight_idle_3"
+                },
+                {
+                    "key": "elite_knight",
+                    "frame": "largeeliteknight_idle_4"
+                }
+            ]
+        }
+    ]
+}
