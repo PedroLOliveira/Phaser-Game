@@ -38,6 +38,9 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         } else if (this.inputKeys.down.isDown) {
             playerVelocity.y = 1;
         }
+        if (this.inputKeys.catch.isDown) {
+            //coleta item
+        }
         this.setFixedRotation();
         playerVelocity.normalize();
         playerVelocity.scale(speed);

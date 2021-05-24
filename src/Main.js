@@ -21,7 +21,7 @@ const config = {
         // Cena3
     ],
     scale: {
-        zoom: 1.8,
+        zoom: 1.4,
     },
     physics: {
         default: 'matter',
