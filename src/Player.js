@@ -18,9 +18,9 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         return this.body.velocity;
     }
 
-    static preload(scene) {
-        scene.load.atlas('king','assets/images/king.png','assets/images/king_atlas.json');
-        scene.load.animation('king_anim','assets/images/king_anim.json');
+    static preload(scene,file) {
+        scene.load.atlas(file,'assets/images/' + file + '.png','assets/images/' + file + '_atlas.json');
+        scene.load.animation(file + '_anim','assets/images/' + file + '_anim.json');
     }
 
     update() {

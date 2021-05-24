@@ -1,0 +1,20 @@
+{
+    "anims": [
+        {
+            "key": "idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 1,
+            "frames": [
+                {
+                    "key": "pocao",
+                    "frame": "pocao_idle_1"
+                },
+                {
+                    "key": "pocao",
+                    "frame": "pocao_idle_2"
+                }
+            ]
+        }
+    ]
+}
