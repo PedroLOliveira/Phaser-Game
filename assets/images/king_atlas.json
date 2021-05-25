@@ -1,107 +1,315 @@
 {
     "frames": [
         {
-            "filename": "king_idle_1",
+            "filename": "king_r_idle_1",
             "frame": {
-                "w": 32,
-                "h": 32,
-                "x": 1,
-                "y": 1
+                "w": 33,
+                "h": 33,
+                "x": 0,
+                "y": 0
             },
             "anchor": {
                 "x": 0.5,
-                "y": 0.7
+                "y": 0.5
             }
         },
         {
-            "filename": "king_idle_2",
+            "filename": "king_r_idle_2",
             "frame": {
-                "w": 32,
-                "h": 32,
-                "x": 34,
-                "y": 1
+                "w": 33,
+                "h": 33,
+                "x": 33,
+                "y": 0
             },
             "anchor": {
                 "x": 0.5,
-                "y": 0.7
+                "y": 0.5
             }
         },
         {
-            "filename": "king_idle_3",
+            "filename": "king_r_idle_3",
             "frame": {
-                "w": 32,
-                "h": 32,
-                "x": 1,
-                "y": 34
+                "w": 33,
+                "h": 33,
+                "x": 0,
+                "y": 33
             },
             "anchor": {
                 "x": 0.5,
-                "y": 0.7
+                "y": 0.5
             }
         },
         {
-            "filename": "king_idle_4",
+            "filename": "king_r_idle_4",
             "frame": {
-                "w": 32,
-                "h": 32,
-                "x": 34,
-                "y": 34
+                "w": 33,
+                "h": 33,
+                "x": 33,
+                "y": 33
             },
             "anchor": {
                 "x": 0.5,
-                "y": 0.7
+                "y": 0.5
             }
         },
         {
-            "filename": "king_walk_1",
+            "filename": "king_l_idle_1",
             "frame": {
-                "w": 32,
-                "h": 32,
-                "x": 67,
-                "y": 1
+                "w": 33,
+                "h": 33,
+                "x": 66,
+                "y": 0
             },
             "anchor": {
                 "x": 0.5,
-                "y": 0.7
+                "y": 0.5
             }
         },
         {
-            "filename": "king_walk_2",
+            "filename": "king_l_idle_2",
             "frame": {
-                "w": 32,
-                "h": 32,
-                "x": 67,
-                "y": 34
+                "w": 33,
+                "h": 33,
+                "x": 66,
+                "y": 33
             },
             "anchor": {
                 "x": 0.5,
-                "y": 0.7
+                "y": 0.5
             }
         },
         {
-            "filename": "king_walk_3",
+            "filename": "king_l_idle_3",
             "frame": {
-                "w": 32,
-                "h": 32,
-                "x": 1,
-                "y": 67
+                "w": 33,
+                "h": 33,
+                "x": 0,
+                "y": 66
             },
             "anchor": {
                 "x": 0.5,
-                "y": 0.7
+                "y": 0.5
             }
         },
         {
-            "filename": "king_walk_4",
+            "filename": "king_l_idle_4",
             "frame": {
-                "w": 32,
-                "h": 32,
-                "x": 34,
-                "y": 67
+                "w": 33,
+                "h": 33,
+                "x": 33,
+                "y": 66
             },
             "anchor": {
                 "x": 0.5,
-                "y": 0.7
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_r_walk_1",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 66,
+                "y": 66
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_r_walk_2",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 99,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_r_walk_3",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 99,
+                "y": 33
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_r_walk_4",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 99,
+                "y": 66
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_l_walk_1",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 0,
+                "y": 99
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_l_walk_2",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 33,
+                "y": 99
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_l_walk_3",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 66,
+                "y": 99
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_l_walk_4",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 99,
+                "y": 99
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_r_attack_1",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 0,
+                "y": 132
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_r_attack_2",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 33,
+                "y": 132
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_r_attack_3",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 66,
+                "y": 132
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_r_attack_4",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 99,
+                "y": 132
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_l_attack_1",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 0,
+                "y": 165
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_l_attack_2",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 33,
+                "y": 165
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_l_attack_3",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 66,
+                "y": 165
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "king_l_attack_4",
+            "frame": {
+                "w": 33,
+                "h": 33,
+                "x": 99,
+                "y": 165
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
             }
         }
     ],

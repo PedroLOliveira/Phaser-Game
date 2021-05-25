@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "phaser": "^3.54.0",
-    "phaser-matter-collision-plugin": "^0.10.2"
+    "phaser-matter-collision-plugin": "^0.10.2",
+    "phaser3-cli": "^0.2.5"
   },
   "devDependencies": {},
   "scripts": {

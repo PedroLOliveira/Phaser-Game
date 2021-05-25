@@ -31,7 +31,7 @@ export default class CenaMenu extends Phaser.Scene {
             frameRate: 4,
             repeat: -1, //repeat forever,
             frames: this.anims.generateFrameNumbers("King", {
-                frames: [1,2]
+                frames: [1,3]
             })
         })
        

@@ -1,50 +1,146 @@
 {
     "anims": [
         {
-            "key": "walk",
+            "key": "attack_l",
             "type": "frames",
-            "repeat": -1,
+            "repeat": 0,
             "frameRate": 12,
             "frames": [
                 {
                     "key": "king",
-                    "frame": "king_walk_1"
+                    "frame": "king_l_attack_1"
                 },
                 {
                     "key": "king",
-                    "frame": "king_walk_2"
+                    "frame": "king_l_attack_2"
                 },
                 {
                     "key": "king",
-                    "frame": "king_walk_3"
+                    "frame": "king_l_attack_3"
                 },
                 {
                     "key": "king",
-                    "frame": "king_walk_4"
+                    "frame": "king_l_attack_4"
                 }
             ]
         },
         {
-            "key": "idle",
+            "key": "attack_r",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "king",
+                    "frame": "king_r_attack_1"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_r_attack_2"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_r_attack_3"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_r_attack_4"
+                }
+            ]
+        },
+        {
+            "key": "walk_l",
             "type": "frames",
             "repeat": -1,
             "frameRate": 12,
             "frames": [
                 {
                     "key": "king",
-                    "frame": "king_idle_1"
+                    "frame": "king_l_walk_1"
                 },
                 {
                     "key": "king",
-                    "frame": "king_idle_2"
+                    "frame": "king_l_walk_2"
                 },
                 {
                     "key": "king",
-                    "frame": "king_idle_3"
+                    "frame": "king_l_walk_3"
                 },
                 {
                     "key": "king",
-                    "frame": "king_idle_4"
+                    "frame": "king_l_walk_4"
+                }
+            ]
+        },
+        {
+            "key": "walk_r",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "king",
+                    "frame": "king_r_walk_1"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_r_walk_2"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_r_walk_3"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_r_walk_4"
+                }
+            ]
+        },
+        {
+            "key": "idle_l",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "king",
+                    "frame": "king_l_idle_1"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_l_idle_2"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_l_idle_3"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_l_idle_4"
+                }
+            ]
+        },
+        {
+            "key": "idle_r",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "king",
+                    "frame": "king_r_idle_1"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_r_idle_2"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_r_idle_3"
+                },
+                {
+                    "key": "king",
+                    "frame": "king_r_idle_4"
                 }
             ]
         }
