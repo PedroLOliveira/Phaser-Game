@@ -1,3 +1,5 @@
+import Phaser from 'phaser';
+import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
 import CenaLoad from "./CenaLoad.js";
 import CenaMenu from "./CenaMenu.js";
 // import CenaIntro from "./CenaIntro.js";

@@ -5,19 +5,19 @@ export default class CenaLoad extends Phaser.Scene {
     }
 
     loadImages() {
-        this.load.image('TitleBG2','../assets/images/TitleBG2.png');
-        this.load.image('Logo','../assets/images/Logo.png');
-        this.load.image('Play','../assets/images/play_button.png');
-        this.load.image('Options','../assets/images/options_button.png');
+        this.load.image('TitleBG2','src/assets/images/TitleBG2.png');
+        this.load.image('Logo','src/assets/images/Logo.png');
+        this.load.image('Play','src/assets/images/play_button.png');
+        this.load.image('Options','src/assets/images/options_button.png');
     }
 
     loadAudio() {
-        this.load.audio('Intro', '../assets/audios/Intro.mp3');
-        //this.load.audio('Scenes', '../assets/audios/Scenes.mp3');
+        this.load.audio('Intro', 'src/assets/audios/Intro.mp3');
+        //this.load.audio('Scenes', 'src/assets/audios/Scenes.mp3');
     }
     
     loadSprites(frameConfig) {
-        this.load.spritesheet('King', '../assets/images/king.png', frameConfig);
+        this.load.spritesheet('King', 'src/assets/images/king.png', frameConfig);
     }
 
     preload() {
@@ -87,9 +87,10 @@ export default class CenaLoad extends Phaser.Scene {
             frameWidth: 32
         });
         this.loadImages();
+        //this.sound.play('Intro', { loop: true });
 
         // for (let i = 0; i < 500; i++) {
-        //     this.load.image('logo'+i, '../assets/images/Logo.png');
+        //     this.load.image('logo'+i, 'src/assets/images/Logo.png');
         // }
     }
 

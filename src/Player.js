@@ -1,12 +1,16 @@
+
 export default class Player extends Phaser.Physics.Matter.Sprite {
     constructor(data) {
-        let { scene, x, y, texture, frame, hp } = data;
-        super(scene.matter.world, x, y, texture, frame, hp);
+        let { scene, x, y, texture, frame, hp, damage } = data;
+        super(scene.matter.world, x, y, texture, frame);
         this.scene.add.existing(this);
 
+        this.hp = 3;
+        this.damage = damage;
         const { Body, Bodies } = Phaser.Physics.Matter.Matter;
         var playerCollider = Bodies.circle(this.x, this.y, 12, { isSensor: false, label: 'playerCollider' });
         var playerSensor = Bodies.circle(this.x, this.y, 24, { isSensor: true, label: 'playerSensor' });
+        this.setCollisionGroup(1);
         const compoundBody = Body.create({
             parts: [playerCollider, playerSensor],
             frictionAir: 0.35
@@ -14,17 +18,53 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         this.setExistingBody(compoundBody);
     }
 
+    create(hp, damage) {
+        this.hp = hp;
+        this.damage = damage;
+    }
+
     get velocity() {
         return this.body.velocity;
     }
 
+    // get damage() {
+    //     return this.damage;
+    // }
+
+    // set damage(damage) {
+    //     this.damage = damage;
+    // }
+
+    get direction() {
+        return this.body.x > 0 ? 'l' : 'r';
+    }
+
+    get currentAnim() {
+        return this.anims.getName;
+    }
+
     static preload(scene, file) {
-        scene.load.atlas(file, 'assets/images/' + file + '.png', 'assets/images/' + file + '_atlas.json');
-        scene.load.animation(file + '_anim', 'assets/images/' + file + '_anim.json');
+        scene.load.atlas(file, 'src/assets/images/' + file + '.png', 'src/assets/images/' + file + '_atlas.json');
+        scene.load.animation(file + '_anim', 'src/assets/images/' + file + '_anim.json');
+    }
+
+    increaseDamage(howMuch) {
+        this.damage += howMuch;
+    }
+
+    takeDamage(damage) {
+        this.hp -= damage;
+        if (this.hp <= 0) {
+            console.log('voce morreu');
+            //this.setToSleep();
+        }
+        console.log('damage to player: ' + damage);
     }
 
     doDamage() {
-        //this.body.parts()
+        this.once(Phaser.Animations.Events.ANIMATION_STOP, () => {
+            console.log('damage to enemy: ' + this.damage);
+        }, this.scene);
     }
 
     update() {
@@ -42,26 +82,35 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         } else if (this.inputKeys.down.isDown) {
             playerVelocity.y = 1;
         }
-        let direction = (this.body.x > 0 ? 'l' : 'r');
+
         this.setFixedRotation();
         playerVelocity.normalize();
         playerVelocity.scale(speed);
         this.setVelocity(playerVelocity.x, playerVelocity.y);
         if ((Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) && !this.inputKeys.attack.isDown && !this.anims.isPlaying) {
-            this.anims.play('walk_' + direction, true); //verificar chain
+            this.anims.play('walk_' + this.direction, true); //verificar chain
         }
-        //this.inputKeys.attack.onDown(attack, this.scene);
         if (this.inputKeys.attack.isDown) {
-            this.anims.play('attack_' + direction, true).doDamage();
+            this.anims.play('attack_' + this.direction, true);
+            this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+                this.doDamage();
+            }, this.scene);
+            this.once(Phaser.GameObjects.Events.DESTROY, () => {
+                this.doDamage();
+            }, this.scene);
+        }
+        if (this.inputKeys.defense.isDown) {
+            this.setToSleep(false);
         }
         if (this.inputKeys.catch.isDown) {
-            this.anims.play('collect_' + direction, true);
+            console.log('catch item');
+            this.anims.play('collect_' + this.direction, true);
         }
         if (this.hp = 0) {
             this.anims.play('dead', true);
         }
         if (!this.anims.isPlaying) {
-            this.anims.play('idle_' + direction, true);
+            this.anims.play('idle_' + this.direction, true);
         }
     }
 }

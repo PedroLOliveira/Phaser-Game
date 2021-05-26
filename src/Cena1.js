@@ -17,9 +17,9 @@ export default class Cena1 extends Phaser.Scene {
         Enemy.preload(this, 'elite_knight');
         Item.preload(this, 'pocao');
         Item.preload(this, 'key');
-        this.load.image('tiles1', 'assets/images/RPG Nature Tileset.png');
-        this.load.image('tiles2', 'assets/images/objects/ItemPack_Outline_Black.png');
-        this.load.tilemapTiledJSON('map', 'assets/images/map.json');
+        this.load.image('tiles1', 'src/assets/images/RPG Nature Tileset.png');
+        this.load.image('tiles2', 'src/assets/images/objects/ItemPack_Outline_Black.png');
+        this.load.tilemapTiledJSON('map', 'src/assets/images/map.json');
     }
 
     createPotions() {
@@ -27,7 +27,7 @@ export default class Cena1 extends Phaser.Scene {
     }
 
     collectPocao() {
-        //alert('pocao');
+        console.log('pocao');
     }
 
     create() {
@@ -43,15 +43,16 @@ export default class Cena1 extends Phaser.Scene {
         this.matter.world.convertTilemapLayer(layer1);
         this.matter.world.convertTilemapLayer(layer2);
 
-        this.player = new Player({ scene: this, x: 50, y: 50, texture: 'king', frame: 'king_r_idle_1', hp: 3 });
-        let enemy1 = new Enemy({ scene: this, x: 155, y: 60, texture: 'thief', frame: 'thief_idle_1', hp: 2 }).create('thief');
-        let enemy2 = new Enemy({ scene: this, x: 450, y: 60, texture: 'thief', frame: 'thief_idle_1', hp: 2 }).create('thief');
-        let enemy3 = new Enemy({ scene: this, x: 350, y: 200, texture: 'thief', frame: 'thief_idle_1', hp: 2 }).create('thief');
-        let enemy4 = new Enemy({ scene: this, x: 500, y: 400, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', hp: 4 }).create('elite_knight');
-        let pocao1 = new Item({ scene: this, x: 170, y: 90, texture: 'pocao', frame: 'pocao_idle_1' }).create('potion');
-        let pocao2 = new Item({ scene: this, x: 250, y: 90, texture: 'pocao', frame: 'pocao_idle_1' }).create('potion');
-        let pocao3 = new Item({ scene: this, x: 400, y: 90, texture: 'pocao', frame: 'pocao_idle_1' }).create('potion');
-        let key1 = new Item({ scene: this, x: 480, y: 390, texture: 'key', frame: 'key_idle_1' });
+        this.player = new Player({ scene: this, x: 50, y: 50, texture: 'king', frame: 'king_r_idle_1', hp: 3, damage: 1 });
+        let enemy1 = new Enemy({ scene: this, x: 155, y: 60, texture: 'thief', frame: 'thief_idle_1', hp: 2, damage: 1 }).create('thief');
+        let enemy2 = new Enemy({ scene: this, x: 450, y: 60, texture: 'thief', frame: 'thief_idle_1', hp: 2, damage: 1 }).create('thief');
+        let enemy3 = new Enemy({ scene: this, x: 350, y: 200, texture: 'thief', frame: 'thief_idle_1', hp: 2, damage: 1 }).create('thief');
+        let enemy4 = new Enemy({ scene: this, x: 65, y: 400, texture: 'thief', frame: 'thief_idle_1', hp: 2, damage: 1 }).create('thief');
+        let enemy5 = new Enemy({ scene: this, x: 500, y: 400, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', hp: 4, damage: 1 }).create('elite_knight');
+        let pocao1 = new Item({ scene: this, x: 125, y: 470, texture: 'pocao', frame: 'pocao_idle_1' }).create('potion');
+        let pocao2 = new Item({ scene: this, x: 272, y: 138, texture: 'pocao', frame: 'pocao_idle_1' }).create('potion');
+        let pocao3 = new Item({ scene: this, x: 288, y: 270, texture: 'pocao', frame: 'pocao_idle_1' }).create('potion');
+        let lever1 = new Item({ scene: this, x: 410, y: 370, texture: 'lever', frame: 'lever_idle_1' }).create('lever');
         this.player.inputKeys = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
             down: Phaser.Input.Keyboard.KeyCodes.S,
@@ -62,8 +63,36 @@ export default class Cena1 extends Phaser.Scene {
             catch: Phaser.Input.Keyboard.KeyCodes.I
         });
 
-        //enemy1.update();
-        //this.physics.add.overlap(this.player, this.pocao1, collectPocao, null, this);
+        this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
+            if ((bodyA.label === 'playerSensor' && bodyB.label === 'enemySensor') || (bodyB.label === 'playerSensor' && bodyA.label === 'enemySensor')) {
+                console.log('atrai inimigo');
+            }
+            if ((bodyA.label === 'playerCollider' && bodyB.label === 'itemSensor') || (bodyB.label === 'playerCollider' && bodyA.label === 'itemSensor')) {
+                console.log('coleta poção');
+            }
+            if ((bodyA.label === 'playerCollider' && bodyB.label === 'enemyCollider') || (bodyB.label === 'playerCollider' && bodyA.label === 'enemyCollider')) {
+                if ((this.player.currentAnim == 'attack_r' || this.player.currentAnim == 'attack_l') && this.player.anims.isPlaying) {
+                    if (bodyA.label === 'enemyCollider')
+                        bodyA.takeDamage(this.player.damage);
+                    else
+                        bodyB.takeDamage(this.player.damage);
+                }
+                else {
+                    this.player.takeDamage(1);
+                }
+            }
+        }, this);
+
+        this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
+            if ((bodyA.label === 'playerSensor' && bodyB.label === 'enemySensor') || (bodyB.label === 'playerSensor' && bodyA.label === 'enemySensor')) {
+                console.log('para de atrair inimigo');
+                //console.log("collision end, between", bodyA.label, bodyB.label);
+            }
+            if ((bodyA.label === 'playerCollider' && bodyB.label === 'itemSensor') || (bodyB.label === 'playerCollider' && bodyA.label === 'itemSensor')) {
+                console.log('deixa de coletar poção');
+                //console.log("collision end, between", bodyA.label, bodyB.label);
+            }
+        }, this);
     }
 
     update() {

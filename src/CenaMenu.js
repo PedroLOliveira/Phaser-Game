@@ -5,16 +5,16 @@ export default class CenaMenu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('TitleBG2','../assets/images/TitleBG2.jpg');
-        this.load.image('Logo','../assets/images/Logo.png');
-        this.load.image('Play','../assets/images/play_button.png');
-        this.load.image('Options','../assets/images/options_button.png');
-        this.load.spritesheet('King', '../assets/images/king.png', { frameHeight: 32, frameWidth: 32 });
+        this.load.image('TitleBG2','src/assets/images/TitleBG2.jpg');
+        this.load.image('Logo','src/assets/images/Logo.png');
+        this.load.image('Play','src/assets/images/play_button.png');
+        this.load.image('Options','src/assets/images/options_button.png');
+        this.load.spritesheet('King', 'src/assets/images/king.png', { frameHeight: 32, frameWidth: 32 });
     }
 
     create() {
         this.sound.pauseOnBlur = false;
-        this.sound.play('Intro', {loop: true})
+        this.sound.play('Intro', { loop: true });
         
         this.add.image(this.game.renderer.width / 2, this.game.renderer.height * 0.20, 'Logo').setDepth(1);
         this.add.image(0, 0, 'TitleBG2').setOrigin(0).setDepth(0);
