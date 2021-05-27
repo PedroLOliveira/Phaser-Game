@@ -1,6 +1,7 @@
 import Player from "./Player.js";
 import Enemy from "./Enemy.js";
 import Item from "./Item.js";
+import { PhaserMatterCollisionPlugin } from "phaser-matter-collision-plugin";
 
 export default class Cena1 extends Phaser.Scene {
     constructor() {
@@ -17,9 +18,6 @@ export default class Cena1 extends Phaser.Scene {
         Enemy.preload(this, 'elite_knight');
         Item.preload(this, 'pocao');
         Item.preload(this, 'key');
-        this.load.image('tiles1', 'src/assets/images/RPG Nature Tileset.png');
-        this.load.image('tiles2', 'src/assets/images/objects/ItemPack_Outline_Black.png');
-        this.load.tilemapTiledJSON('map', 'src/assets/images/map.json');
     }
 
     createPotions() {
@@ -65,6 +63,7 @@ export default class Cena1 extends Phaser.Scene {
 
         this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
             if ((bodyA.label === 'playerSensor' && bodyB.label === 'enemySensor') || (bodyB.label === 'playerSensor' && bodyA.label === 'enemySensor')) {
+                this.sys.dialogModal.init();
                 console.log('atrai inimigo');
             }
             if ((bodyA.label === 'playerCollider' && bodyB.label === 'itemSensor') || (bodyB.label === 'playerCollider' && bodyA.label === 'itemSensor')) {
@@ -93,6 +92,11 @@ export default class Cena1 extends Phaser.Scene {
                 //console.log("collision end, between", bodyA.label, bodyB.label);
             }
         }, this);
+
+        this.plugins.install('DialogModalPlugin');
+        console.log(this.sys.plugins.get('DialogModalPlugin'));
+        this.sys.plugins.get('DialogModalPlugin').init();
+        this.sys.dialogModal.setText('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', true);
     }
 
     update() {

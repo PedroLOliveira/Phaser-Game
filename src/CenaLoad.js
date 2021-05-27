@@ -1,14 +1,22 @@
+import { Scene } from 'phaser';
+import DialogModalPlugin from './dialog_pluginClass';
 
 export default class CenaLoad extends Phaser.Scene {
     constructor() {
         super('CenaLoad');
+        let Modal = new DialogModalPlugin(this);
+        this.plugins.install('DialogModalPlugin');
+        this.load.scenePlugin('FractalPlugin', 'assets/loader-tests/FractalScenePlugin.js', 'fractalPlugin', 'fractals');
+        //console.log(this.plugins.get('DialogModalPlugin'));
     }
 
     loadImages() {
-        this.load.image('TitleBG2','src/assets/images/TitleBG2.png');
+        this.load.image('TitleBG2','src/assets/images/TitleBG2.jpg');
         this.load.image('Logo','src/assets/images/Logo.png');
         this.load.image('Play','src/assets/images/play_button.png');
-        this.load.image('Options','src/assets/images/options_button.png');
+        this.load.image('Options', 'src/assets/images/options_button.png');
+        this.load.image('tiles1', 'src/assets/images/RPG Nature Tileset.png');
+        this.load.image('tiles2', 'src/assets/images/objects/ItemPack_Outline_Black.png');
     }
 
     loadAudio() {
@@ -18,6 +26,14 @@ export default class CenaLoad extends Phaser.Scene {
     
     loadSprites(frameConfig) {
         this.load.spritesheet('King', 'src/assets/images/king.png', frameConfig);
+    }
+
+    loadTilemapTiledJSON() {
+        this.load.tilemapTiledJSON('map', 'src/assets/images/map.json');
+    }
+
+    loadPlugins() {
+        this.load.plugin('DialogModalPlugin', 'src/dialog_plugin.js');
     }
 
     preload() {
@@ -87,11 +103,12 @@ export default class CenaLoad extends Phaser.Scene {
             frameWidth: 32
         });
         this.loadImages();
-        //this.sound.play('Intro', { loop: true });
+        this.loadTilemapTiledJSON();
+        this.loadPlugins();
 
-        // for (let i = 0; i < 500; i++) {
-        //     this.load.image('logo'+i, 'src/assets/images/Logo.png');
-        // }
+        // this.plugins.install('DialogModalPlugin');
+        // this.load.scenePlugin('FractalPlugin', 'assets/loader-tests/FractalScenePlugin.js', 'fractalPlugin', 'fractals');
+        //console.log(this.plugins.get('DialogModalPlugin'));
     }
 
     create() 
