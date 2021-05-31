@@ -1,4 +1,4 @@
-class DialogModalPlugin {
+export class DialogModalPlugin {
     constructor(scene) {
         // the scene that owns the plugin
         this.scene = scene;

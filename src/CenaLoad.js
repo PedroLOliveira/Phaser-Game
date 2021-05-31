@@ -1,13 +1,11 @@
 import { Scene } from 'phaser';
-import DialogModalPlugin from './dialog_pluginClass';
+// import DialogModalPlugin from './dialog_plugin';
 
 export default class CenaLoad extends Phaser.Scene {
     constructor() {
         super('CenaLoad');
-        let Modal = new DialogModalPlugin(this);
-        this.plugins.install('DialogModalPlugin');
-        this.load.scenePlugin('FractalPlugin', 'assets/loader-tests/FractalScenePlugin.js', 'fractalPlugin', 'fractals');
-        //console.log(this.plugins.get('DialogModalPlugin'));
+        // this.plugins.install('DialogModalPlugin');
+        // this.load.scenePlugin('FractalPlugin', 'assets/loader-tests/FractalScenePlugin.js', 'fractalPlugin', 'fractals');
     }
 
     loadImages() {
@@ -33,7 +31,9 @@ export default class CenaLoad extends Phaser.Scene {
     }
 
     loadPlugins() {
-        this.load.plugin('DialogModalPlugin', 'src/dialog_plugin.js');
+        this.load.plugin('DialogModalPlugin', './dialog_plugin');
+        // let Modal = new DialogModalPlugin(this);
+        // console.log(this.plugins.get('DialogModalPlugin'));
     }
 
     preload() {
@@ -104,7 +104,7 @@ export default class CenaLoad extends Phaser.Scene {
         });
         this.loadImages();
         this.loadTilemapTiledJSON();
-        this.loadPlugins();
+        // this.loadPlugins();
 
         // this.plugins.install('DialogModalPlugin');
         // this.load.scenePlugin('FractalPlugin', 'assets/loader-tests/FractalScenePlugin.js', 'fractalPlugin', 'fractals');

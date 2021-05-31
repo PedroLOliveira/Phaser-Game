@@ -1,7 +1,7 @@
 import Player from "./Player.js";
 import Enemy from "./Enemy.js";
 import Item from "./Item.js";
-import { PhaserMatterCollisionPlugin } from "phaser-matter-collision-plugin";
+// import DialogModalPlugin from './dialog_plugin';
 
 export default class Cena1 extends Phaser.Scene {
     constructor() {
@@ -17,7 +17,8 @@ export default class Cena1 extends Phaser.Scene {
         Enemy.preload(this, 'thief');
         Enemy.preload(this, 'elite_knight');
         Item.preload(this, 'pocao');
-        Item.preload(this, 'key');
+        Item.preload(this, 'lever');
+        this.load.plugin('DialogModalPlugin', './dialog_plugin');
     }
 
     createPotions() {
@@ -93,10 +94,10 @@ export default class Cena1 extends Phaser.Scene {
             }
         }, this);
 
-        this.plugins.install('DialogModalPlugin');
+        this.sys.plugins.install('DialogModalPlugin');
         console.log(this.sys.plugins.get('DialogModalPlugin'));
-        this.sys.plugins.get('DialogModalPlugin').init();
-        this.sys.dialogModal.setText('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', true);
+        // this.sys.plugins.get('dialogModal').init();
+        // this.plugins.dialogModal.setText('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', true);
     }
 
     update() {
