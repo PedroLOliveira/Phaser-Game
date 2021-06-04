@@ -1,12 +1,10 @@
 
 export default class Player extends Phaser.Physics.Matter.Sprite {
     constructor(data) {
-        let { scene, x, y, texture, frame, hp, damage } = data;
+        let { scene, x, y, texture, frame } = data;
         super(scene.matter.world, x, y, texture, frame);
         this.scene.add.existing(this);
 
-        this.hp = 3;
-        this.damage = damage;
         const { Body, Bodies } = Phaser.Physics.Matter.Matter;
         var playerCollider = Bodies.circle(this.x, this.y, 12, { isSensor: false, label: 'playerCollider' });
         var playerSensor = Bodies.circle(this.x, this.y, 24, { isSensor: true, label: 'playerSensor' });
@@ -17,9 +15,12 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         });
         this.setExistingBody(compoundBody);
     }
+    
 
-    create(hp, damage) {
+    create(file, hp, damage) {
+        this.file = file;
         this.hp = hp;
+        console.log(this.file);
         this.damage = damage;
     }
 
@@ -27,13 +28,13 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         return this.body.velocity;
     }
 
-    // get damage() {
-    //     return this.damage;
-    // }
+    get getHP() {
+        return this.hp;
+    }
 
-    // set damage(damage) {
-    //     this.damage = damage;
-    // }
+    set setHP(hp) {
+        this.hp = hp;
+    }
 
     get direction() {
         return this.body.x > 0 ? 'l' : 'r';
@@ -52,13 +53,19 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         this.damage += howMuch;
     }
 
+    heal(howMuch) {
+        this.hp += howMuch;
+        console.log('player healed by: ', howMuch);
+    }
+
     takeDamage(damage) {
         this.hp -= damage;
         if (this.hp <= 0) {
             console.log('voce morreu');
-            //this.setToSleep();
+            this.anims.play('dead', true);
+            this.scene.scene.restart();
         }
-        console.log('damage to player: ' + damage);
+        console.log('player damaged by: ' + damage);
     }
 
     doDamage() {
@@ -105,9 +112,6 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         if (this.inputKeys.catch.isDown) {
             console.log('catch item');
             this.anims.play('collect_' + this.direction, true);
-        }
-        if (this.hp = 0) {
-            this.anims.play('dead', true);
         }
         if (!this.anims.isPlaying) {
             this.anims.play('idle_' + this.direction, true);

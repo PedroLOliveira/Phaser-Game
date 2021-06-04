@@ -22,6 +22,7 @@ export default class Item extends Phaser.Physics.Matter.Sprite {
 
     create(file) {
         this.file = file;
+        console.log(this.file);
         this.anims.play('idle_' + this.file, true);
     }
 

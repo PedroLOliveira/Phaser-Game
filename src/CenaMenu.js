@@ -46,7 +46,16 @@ export default class CenaMenu extends Phaser.Scene {
         })
 
         playButton.on("pointerup", () => {
-            this.scene.start('Cena1');
+            
+            this.cameras.main.on('camerafadeoutcomplete', function () {
+                this.scene.start('Cena1');
+            }, this);
+
+            var red = Phaser.Math.Between(50, 255);
+            var green = Phaser.Math.Between(50, 255);
+            var blue = Phaser.Math.Between(50, 255);
+
+            this.cameras.main.fade(2000, red, green, blue);
         })
 
         optionsButton.setInteractive();
