@@ -29,6 +29,32 @@ export default class Cena1 extends Phaser.Scene {
         console.log('pocao');
     }
 
+    doDamage(bodyA, bodyB) {
+        let label = bodyA.label.includes('enemy') ? bodyA.label.replace('Collider','').replace('Sensor','') : bodyB.label.replace('Collider','').replace('Sensor','');
+        this.enemies.some(
+        
+        // switch(label) {
+        //     case this.enemy1.label:
+        //         this.enemy1.takeDamage(this.player);
+        //         break;
+        //     case this.enemy2.label:
+        //         this.enemy2.takeDamage(this.player);
+        //         break;
+        //     case this.enemy3.label:
+        //         this.enemy3.takeDamage(this.player);
+        //         break;
+        //     case this.enemy4.label:
+        //         this.enemy4.takeDamage(this.player);
+        //         break;
+        //     case this.enemy5.label:
+        //         this.enemy5.takeDamage(this.player);
+        //         break;
+        //     default:
+        //         break;
+        // }
+
+    }
+
     create() {
         const map = this.make.tilemap({ key: 'map' });
 
@@ -42,14 +68,21 @@ export default class Cena1 extends Phaser.Scene {
         this.matter.world.convertTilemapLayer(layer1);
         this.matter.world.convertTilemapLayer(layer2);
 
-        this.player = new Player({ scene: this, x: 50, y: 50, texture: 'king', frame: 'king_r_idle_1' });
+        this.player = new Player({ scene: this, x: 50, y: 50, texture: 'king', frame: 'king_r_idle_1', hp: 3, damage: 1 });
         
-        this.enemy1 = new Enemy({ scene: this, x: 155, y: 60, texture: 'thief', frame: 'thief_idle_1' });
-        this.enemy2 = new Enemy({ scene: this, x: 450, y: 60, texture: 'thief', frame: 'thief_idle_1' });
-        this.enemy3 = new Enemy({ scene: this, x: 350, y: 200, texture: 'thief', frame: 'thief_idle_1' });
-        this.enemy4 = new Enemy({ scene: this, x: 65, y: 400, texture: 'thief', frame: 'thief_idle_1' });
+        this.enemies = [
+            new Enemy({ scene: this, x: 155, y: 60, texture: 'thief', frame: 'thief_idle_1', label: 'enemy1', hp: 2, damage: 1 }),
+            new Enemy({ scene: this, x: 450, y: 60, texture: 'thief', frame: 'thief_idle_1', label: 'enemy2', hp: 2, damage: 1 }),
+            new Enemy({ scene: this, x: 350, y: 200, texture: 'thief', frame: 'thief_idle_1', label: 'enemy3', hp: 2, damage: 1 }),
+            new Enemy({ scene: this, x: 65, y: 400, texture: 'thief', frame: 'thief_idle_1', label: 'enemy4', hp: 2, damage: 1 }),
+            new Enemy({ scene: this, x: 500, y: 400, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy5', hp: 4, damage: 1 })
+        ];
+        // this.enemy1 = new Enemy({ scene: this, x: 155, y: 60, texture: 'thief', frame: 'thief_idle_1', label: 'enemy1', hp: 2, damage: 1 });
+        // this.enemy2 = new Enemy({ scene: this, x: 450, y: 60, texture: 'thief', frame: 'thief_idle_1', label: 'enemy2', hp: 2, damage: 1 });
+        // this.enemy3 = new Enemy({ scene: this, x: 350, y: 200, texture: 'thief', frame: 'thief_idle_1', label: 'enemy3', hp: 2, damage: 1 });
+        // this.enemy4 = new Enemy({ scene: this, x: 65, y: 400, texture: 'thief', frame: 'thief_idle_1', label: 'enemy4', hp: 2, damage: 1 });
         
-        this.enemy5 = new Enemy({ scene: this, x: 500, y: 400, texture: 'elite_knight', frame: 'largeeliteknight_idle_1' });
+        // this.enemy5 = new Enemy({ scene: this, x: 500, y: 400, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy5', hp: 4, damage: 1 });
         
         this.pocao1 = new Item({ scene: this, x: 125, y: 470, texture: 'pocao', frame: 'pocao_idle_1' });
         this.pocao2 = new Item({ scene: this, x: 272, y: 138, texture: 'pocao', frame: 'pocao_idle_1' });
@@ -65,66 +98,49 @@ export default class Cena1 extends Phaser.Scene {
             defense: Phaser.Input.Keyboard.KeyCodes.P,
             catch: Phaser.Input.Keyboard.KeyCodes.I
         });
-        this.player.create('king', 3, 1);
-        this.enemy1.create('thief', 2, 1);
-        this.enemy2.create('thief', 2, 1);
-        this.enemy3.create('thief', 2, 1);
-        this.enemy4.create('thief', 2, 1);
-        this.enemy5.create('elite_knight', 4, 1);
-        this.pocao1.create('potion');
-        this.pocao2.create('potion');
-        this.pocao3.create('potion');
-        this.lever1.create('lever');
 
         this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
-            if ((bodyA.label === 'playerSensor' && bodyB.label === 'enemySensor') || (bodyB.label === 'playerSensor' && bodyA.label === 'enemySensor')) {
+            if ((bodyA.label === 'playerSensor' && bodyB.label.replace(/[0-9]/g, '') === 'enemySensor') || (bodyB.label === 'playerSensor' && bodyB.label.replace(/[0-9]/g, '') === 'enemySensor')) {
                 // this.sys.dialogModal.init();
                 console.log('atrai inimigo');
                 console.log(this.player.getHP);
-                // if (bodyA.label === 'enemySensor')
-                //         bodyA.startFollowingPlayer(this.player);
-                //     else
-                //         bodyB.startFollowingPlayer(this.player);
+                if (bodyB.label.replace(/[0-9]/g, '') === 'enemySensor')
+                        bodyA.startFollowingPlayer(this.player);
+                    else
+                        bodyB.startFollowingPlayer(this.player);
             }
-            if ((bodyA.label === 'playerCollider' && bodyB.label === 'itemSensor') || (bodyB.label === 'playerCollider' && bodyA.label === 'itemSensor')) {
+            if ((bodyA.label === 'playerCollider' && bodyB.label.replace(/[0-9]/g, '') === 'itemSensor') || (bodyB.label === 'playerCollider' && bodyB.label.replace(/[0-9]/g, '') === 'itemSensor')) {
                 console.log('coleta poção');
                 console.log(this.player.getHP);
                 this.player.heal(1);
-                if (bodyA.label === 'itemSensor')
+                if (bodyB.label.replace(/[0-9]/g, '') === 'itemSensor')
                         bodyA.destroy();
                     else
                         bodyB.destroy();
             }
-            if ((bodyA.label === 'playerSensor' && bodyB.label === 'enemyCollider') || (bodyB.label === 'playerSensor' && bodyA.label === 'enemyCollider')) {
+            if ((bodyA.label === 'playerSensor' && bodyB.label.replace(/[0-9]/g, '') === 'enemyCollider') || (bodyB.label === 'playerSensor' && bodyB.label.replace(/[0-9]/g, '') === 'enemyCollider')) {
                 console.log('alcance para golpes');
-                // if (bodyA.label === 'enemyCollider')
-                //         bodyA.takeDamage(this.player.damage);
-                //     else
-                //         bodyB.takeDamage(this.player.damage);
+                if (this.player.isAttacking)
+                    doDamage(bodyA, bodyB);
             }
-            if ((bodyA.label === 'playerCollider' && bodyB.label === 'enemyCollider') || (bodyB.label === 'playerCollider' && bodyA.label === 'enemyCollider')) {
-                if ((this.player.currentAnim == 'attack_r' || this.player.currentAnim == 'attack_l') && this.player.anims.isPlaying) {
-                    if (bodyA.label === 'enemyCollider')
-                        bodyA.takeDamage(this.player.damage);
-                    else
-                        bodyB.takeDamage(this.player.damage);
-                }
-                else {
+            if ((bodyA.label === 'playerCollider' && bodyB.label.replace(/[0-9]/g, '') === 'enemyCollider') || (bodyB.label === 'playerCollider' && bodyB.label.replace(/[0-9]/g, '') === 'enemyCollider')) {
+                if (this.player.isAttacking)
+                    doDamage(bodyA, bodyB);
+                else
                     this.player.takeDamage(1);
-                }
             }
         }, this);
 
         this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
-            if ((bodyA.label === 'playerSensor' && bodyB.label === 'enemySensor') || (bodyB.label === 'playerSensor' && bodyA.label === 'enemySensor')) {
+            if ((bodyA.label === 'playerSensor' && bodyB.label.replace(/[0-9]/g, '') === 'enemySensor') || (bodyB.label === 'playerSensor' && bodyA.label.replace(/[0-9]/g, '') === 'enemySensor')) {
                 console.log('para de atrair inimigo');
-                // if (bodyA.label === 'enemySensor')
+                // if (bodyA.label.replace(/[0-9]/g, '') === 'enemySensor')
                 //         bodyA.stopFollowingPlayer();
                 //     else
                 //         bodyB.stopFollowingPlayer();
                 //console.log("collision end, between", bodyA.label, bodyB.label);
             }
-            if ((bodyA.label === 'playerCollider' && bodyB.label === 'itemSensor') || (bodyB.label === 'playerCollider' && bodyA.label === 'itemSensor')) {
+            if ((bodyA.label === 'playerCollider' && bodyB.label.replace(/[0-9]/g, '') === 'itemSensor') || (bodyB.label === 'playerCollider' && bodyA.label.replace(/[0-9]/g, '') === 'itemSensor')) {
                 console.log('deixa de coletar poção');
                 //console.log("collision end, between", bodyA.label, bodyB.label);
             }
@@ -135,10 +151,10 @@ export default class Cena1 extends Phaser.Scene {
         // this.sys.plugins.get('dialogModal').init();
         // this.plugins.dialogModal.setText('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', true);
 
-        this.player.setOnCollideWith(this.enemy1.body, pair => {
-            console.log('collides');
-            this.enemy1.takeDamage(this.player.damage)
-        });
+        // this.player.body.setOnCollideWith(this.enemy4.body.parts, pair => {
+        //     console.log('collides');
+        //     this.enemy1.takeDamage(this.player)
+        // });
 
         this.cameras.main.on('camerafadeoutcomplete', function () {
             this.scene.start('Cena2');
@@ -157,11 +173,9 @@ export default class Cena1 extends Phaser.Scene {
 
     update() {
         this.player.update();
-        this.enemy1.update();
-        this.enemy2.update();
-        this.enemy3.update();
-        this.enemy4.update();
-        this.enemy5.update();
+        this.enemies.map(function(enemy, i) {
+            enemy.update();
+        }
         // this.pocao1.update();
         // this.pocao2.update();
         // this.pocao3.update();

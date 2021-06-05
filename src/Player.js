@@ -1,9 +1,13 @@
 
 export default class Player extends Phaser.Physics.Matter.Sprite {
     constructor(data) {
-        let { scene, x, y, texture, frame } = data;
+        let { scene, x, y, texture, frame, hp, damage } = data;
         super(scene.matter.world, x, y, texture, frame);
         this.scene.add.existing(this);
+
+        this.file = texture;
+        this.hp = hp;
+        this.damage = damage;
 
         const { Body, Bodies } = Phaser.Physics.Matter.Matter;
         var playerCollider = Bodies.circle(this.x, this.y, 12, { isSensor: false, label: 'playerCollider' });
@@ -15,13 +19,10 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         });
         this.setExistingBody(compoundBody);
     }
-    
 
-    create(file, hp, damage) {
-        this.file = file;
-        this.hp = hp;
-        console.log(this.file);
-        this.damage = damage;
+    static preload(scene, file) {
+        scene.load.atlas(file, 'src/assets/images/' + file + '.png', 'src/assets/images/' + file + '_atlas.json');
+        scene.load.animation(file + '_anim', 'src/assets/images/' + file + '_anim.json');
     }
 
     get velocity() {
@@ -41,12 +42,11 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     }
 
     get currentAnim() {
-        return this.anims.getName;
+        return this.anims.currentAnim.key;
     }
 
-    static preload(scene, file) {
-        scene.load.atlas(file, 'src/assets/images/' + file + '.png', 'src/assets/images/' + file + '_atlas.json');
-        scene.load.animation(file + '_anim', 'src/assets/images/' + file + '_anim.json');
+    get isAttacking() {
+        return (this.currentAnim == 'attack_r' || this.currentAnim == 'attack_l') && this.anims.isPlaying
     }
 
     increaseDamage(howMuch) {
@@ -66,12 +66,6 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
             this.scene.scene.restart();
         }
         console.log('player damaged by: ' + damage);
-    }
-
-    doDamage() {
-        this.once(Phaser.Animations.Events.ANIMATION_STOP, () => {
-            console.log('damage to enemy: ' + this.damage);
-        }, this.scene);
     }
 
     update() {
@@ -99,12 +93,12 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         }
         if (this.inputKeys.attack.isDown) {
             this.anims.play('attack_' + this.direction, true);
-            this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
-                this.doDamage();
-            }, this.scene);
-            this.once(Phaser.GameObjects.Events.DESTROY, () => {
-                this.doDamage();
-            }, this.scene);
+            // this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+            //     this.doDamage();
+            // }, this.scene);
+            // this.once(Phaser.GameObjects.Events.DESTROY, () => {
+            //     this.doDamage();
+            // }, this.scene);
         }
         if (this.inputKeys.defense.isDown) {
             this.setToSleep(false);
