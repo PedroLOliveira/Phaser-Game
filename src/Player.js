@@ -51,6 +51,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         this.hp = this.hp == this.maxHP ? this.maxHP : this.hp + howMuch;
         console.log('player healed: ', howMuch);
         console.log('HP: ', this.hp);
+        this.scene.sound.play('Effect');
         this.scene.events.emit('increaseHP');
     }
 
@@ -72,9 +73,13 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
 
     doDamage() {
         let damage = this.damage;
+        let scene = this.scene;
         this.scene.enemies.map(function(enemy, i) {
             if (enemy.isAttackable) {
+                scene.sound.play('Hit');
                 enemy.takeDamage(damage, 1);
+            } else {
+                scene.sound.play('Hit');
             }
         });
     }

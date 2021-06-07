@@ -15,7 +15,9 @@ export default class CenaLoad extends Phaser.Scene {
 
     loadAudio() {
         this.load.audio('Intro', 'src/assets/audios/Intro.mp3');
-        //this.load.audio('Scenes', 'src/assets/audios/Scenes.mp3');
+        this.load.audio('Hit', 'src/assets/audios/Hit.mp3');
+        this.load.audio('Effect', 'src/assets/audios/IncreaseDamage.mp3');
+        // this.load.audio('Scenes', 'src/assets/audios/Scenes.mp3');
     }
     
     loadSprites(frameConfig) {
