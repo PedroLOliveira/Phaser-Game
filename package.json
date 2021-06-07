@@ -8,9 +8,7 @@
     "start": "webpack-dev-server --config webpack/base.js --open"
   },
   "dependencies": {
-    "phaser": "^3.55.0",
-    "phaser-matter-collision-plugin": "^0.10.2",
-    "phaser3-cli": "^0.2.5"
+    "phaser": "^3.55.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",

@@ -1,18 +1,14 @@
 import { Scene } from 'phaser';
-// import DialogModalPlugin from './dialog_plugin';
 
 export default class CenaLoad extends Phaser.Scene {
     constructor() {
         super('CenaLoad');
-        // this.plugins.install('DialogModalPlugin');
-        // this.load.scenePlugin('FractalPlugin', 'assets/loader-tests/FractalScenePlugin.js', 'fractalPlugin', 'fractals');
     }
 
     loadImages() {
         this.load.image('TitleBG2','src/assets/images/TitleBG2.jpg');
-        this.load.image('Logo','src/assets/images/Logo.png');
+        this.load.image('Logo','src/assets/images/Logo1.png');
         this.load.image('Play','src/assets/images/play_button.png');
-        this.load.image('Options', 'src/assets/images/options_button.png');
         this.load.image('tiles1', 'src/assets/images/RPG Nature Tileset.png');
         this.load.image('tiles2', 'src/assets/images/objects/ItemPack_Outline_Black.png');
     }
@@ -28,12 +24,6 @@ export default class CenaLoad extends Phaser.Scene {
 
     loadTilemapTiledJSON() {
         this.load.tilemapTiledJSON('map', 'src/assets/images/map.json');
-    }
-
-    loadPlugins() {
-        this.load.plugin('DialogModalPlugin', './dialog_plugin');
-        // let Modal = new DialogModalPlugin(this);
-        // console.log(this.plugins.get('DialogModalPlugin'));
     }
 
     preload() {
@@ -104,11 +94,6 @@ export default class CenaLoad extends Phaser.Scene {
         });
         this.loadImages();
         this.loadTilemapTiledJSON();
-        // this.loadPlugins();
-
-        // this.plugins.install('DialogModalPlugin');
-        // this.load.scenePlugin('FractalPlugin', 'assets/loader-tests/FractalScenePlugin.js', 'fractalPlugin', 'fractals');
-        //console.log(this.plugins.get('DialogModalPlugin'));
     }
 
     create() 

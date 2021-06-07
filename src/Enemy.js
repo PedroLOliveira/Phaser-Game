@@ -37,33 +37,31 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         return this.innerSensor == 1;
     }
 
-    get isHitable() {
+    get isAttackable() {
         return this.innerAttack == 1;
     }
 
-    takeDamage(player) {
-        this.hp -= player.damage;
+    takeDamage() {
+        this.hp -= this.scene.player.damage;
+        console.log('damage to enemy: ' + this.scene.player.damage);
         if (this.hp <= 0) {
-            console.log('inimigo morreu');
-            this.destroy();
+            console.log('enemy died');
+            this.scene.emitter.start();
+            this.scene.emitter.startFollow(this);
+            this.anims.play('dead', true);
+            this.scene.emitter.stopFollow(this);
+            this.scene.emitter.stop();
+            this.scene.enemies.splice(this.scene.enemies.indexOf(this), 1);
+            this.destroy(false);
         }
-        console.log('damage to enemy: ' + player.damage);
     }
 
-    innerSensorRange() {
-        this.innerSensor = 1;
+    attackable(value) {
+        this.innerAttack = value;
     }
 
-    outerSensorRange() {
-        this.innerSensor = 0;
-    }
-
-    innerAttackRange() {
-        this.innerAttack = 1;
-    }
-
-    outerAttackRange() {
-        this.innerAttack = 0;
+    agro(value) {
+        this.innerSensor = value;
     }
 
     update() {
@@ -71,19 +69,22 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         let enemyVelocity = new Phaser.Math.Vector2();
         
         if (this.isAgro) {
-            if (this.player.inputKeys.left.isDown) {
-                enemyVelocity.x = -1;
-                this.setScale(-1, 1);
-            } else if (this.player.inputKeys.right.isDown) {
+            let myPosition = this.getCenter();
+            let playerPosition = this.scene.player.getCenter();
+            if (myPosition.x < playerPosition.x) {
                 enemyVelocity.x = 1;
+                this.setScale(-1, 1);
+            } else if (myPosition.x > playerPosition.x) {
+                enemyVelocity.x = -1;
                 this.setScale(1, 1);
             }
-            if (this.player.inputKeys.up.isDown) {
-                enemyVelocity.y = -1;
-            } else if (this.player.inputKeys.down.isDown) {
+            if (myPosition.y < playerPosition.y) {
                 enemyVelocity.y = 1;
+            } else if (myPosition.y > playerPosition.y) {
+                enemyVelocity.y = -1;
             }
         }
+        else enemyVelocity.set(0,0);
 
         this.setFixedRotation();
         enemyVelocity.normalize();

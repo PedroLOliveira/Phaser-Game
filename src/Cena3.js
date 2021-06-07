@@ -3,9 +3,9 @@ import Enemy from "./Enemy.js";
 import Item from "./Item.js";
 import Door from "./Door.js";
 
-export default class Cena1 extends Phaser.Scene {
+export default class Cena3 extends Phaser.Scene {
     constructor() {
-        super('Cena1');
+        super('Cena3');
     }
 
     preload() {
@@ -14,6 +14,7 @@ export default class Cena1 extends Phaser.Scene {
         Enemy.preload(this, 'elite_knight');
         Item.preload(this, 'pocao');
         Item.preload(this, 'lever');
+        Item.preload(this, 'sword');
         Door.preload(this, 'stone');
         this.load.image('blood', './src/assets/images/blood.png');
     }
@@ -54,39 +55,46 @@ export default class Cena1 extends Phaser.Scene {
         this.map = this.make.tilemap({ key: 'map' });
 
         const tileset1 = this.map.addTilesetImage('RPG Nature Tileset', 'tiles1', 32, 32, 0, 0);
-        this.layer1 = this.map.createLayer('Mapa 1 - Camada de Tiles 1', tileset1, 0, 0);
-        this.layer2 = this.map.createLayer('Mapa 1 - Camada de Tiles 2', tileset1, 0, 0);
+        this.layer1 = this.map.createLayer('Mapa 3 - Camada de Tiles 1', tileset1, 0, 0);
+        this.layer2 = this.map.createLayer('Mapa 3 - Camada de Tiles 2', tileset1, 0, 0);
         this.layer1.setCollisionByProperty({ collides: true });
         this.layer2.setCollisionByProperty({ collides: true });
         this.matter.world.convertTilemapLayer(this.layer1);
         this.matter.world.convertTilemapLayer(this.layer2);
 
-        this.player = new Player({ scene: this, x: 55, y: 40, texture: 'king', frame: 'king_r_idle_1', hp: this.UI.hp, damage: this.UI.damage });
+        this.player = new Player({ scene: this, x: 500, y: 440, texture: 'king', frame: 'king_r_idle_1', hp: this.UI.hp, damage: this.UI.damage });
 
         this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
         this.cameras.main.setZoom(2);
 
         this.enemies = [
-            new Enemy({ scene: this, x: 155, y: 60, texture: 'thief', frame: 'thief_idle_1', label: 'enemy1', hp: 3, damage: 1 }),
-            new Enemy({ scene: this, x: 450, y: 60, texture: 'thief', frame: 'thief_idle_1', label: 'enemy2', hp: 3, damage: 1 }),
-            new Enemy({ scene: this, x: 350, y: 200, texture: 'thief', frame: 'thief_idle_1', label: 'enemy3', hp: 3, damage: 1 }),
-            new Enemy({ scene: this, x: 65, y: 400, texture: 'thief', frame: 'thief_idle_1', label: 'enemy4', hp: 3, damage: 1 }),
-            new Enemy({ scene: this, x: 500, y: 400, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy5', hp: 6, damage: 1 })
+            new Enemy({ scene: this, x: 320, y: 80, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy1', hp: 6, damage: 1 }),
+            new Enemy({ scene: this, x: 400, y: 80, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy2', hp: 6, damage: 1 }),
+            new Enemy({ scene: this, x: 250, y: 60, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy3', hp: 6, damage: 1 }),
+            new Enemy({ scene: this, x: 95, y: 100, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy4', hp: 6, damage: 1 }),
+            new Enemy({ scene: this, x: 120, y: 100, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy5', hp: 6, damage: 1 }),
+            new Enemy({ scene: this, x: 70, y: 150, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy6', hp: 6, damage: 1 }),
+            new Enemy({ scene: this, x: 350, y: 220, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy7', hp: 6, damage: 1 }),
+            new Enemy({ scene: this, x: 210, y: 200, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy8', hp: 6, damage: 1 }),
+            new Enemy({ scene: this, x: 210, y: 450, texture: 'elite_knight', frame: 'largeeliteknight_idle_1', label: 'enemy9', hp: 6, damage: 1 }),
         ];
 
         this.items = [
-            new Item({ scene: this, x: 125, y: 470, texture: 'pocao', frame: 'pocao_idle_1', label: 'item1' }),
-            new Item({ scene: this, x: 272, y: 138, texture: 'pocao', frame: 'pocao_idle_1', label: 'item2' }),
-            new Item({ scene: this, x: 288, y: 270, texture: 'pocao', frame: 'pocao_idle_1', label: 'item3' }),
-            new Item({ scene: this, x: 400, y: 365, texture: 'lever', frame: 'lever_idle_1', label: 'item4' })
+            new Item({ scene: this, x: 60, y: 470, texture: 'pocao', frame: 'pocao_idle_1', label: 'item1' }),
+            new Item({ scene: this, x: 370, y: 160, texture: 'pocao', frame: 'pocao_idle_1', label: 'item2' }),
+            new Item({ scene: this, x: 350, y: 285, texture: 'pocao', frame: 'pocao_idle_1', label: 'item3' }),
+            new Item({ scene: this, x: 440, y: 250, texture: 'pocao', frame: 'pocao_idle_1', label: 'item4' }),
+            new Item({ scene: this, x: 450, y: 80, texture: 'lever', frame: 'lever_idle_1', label: 'item5' }),
+            new Item({ scene: this, x: 210, y: 150, texture: 'sword', frame: 'sword_idle_1', label: 'item6' })
         ];
 
         this.doors = [
-            new Door({ scene: this, x: 215, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door1' }),
-            new Door({ scene: this, x: 243, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door2' }),
-            new Door({ scene: this, x: 271, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door3' }),
-            new Door({ scene: this, x: 299, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door4' }),
-            new Door({ scene: this, x: 327, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door5' })
+            new Door({ scene: this, x: 187, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door1' }),
+            new Door({ scene: this, x: 215, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door2' }),
+            new Door({ scene: this, x: 243, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door3' }),
+            new Door({ scene: this, x: 271, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door4' }),
+            new Door({ scene: this, x: 299, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door5' }),
+            new Door({ scene: this, x: 327, y: 500, texture: 'stone', frame: 'stone_idle_1', label: 'door6' })
         ];
 
         this.player.inputKeys = this.input.keyboard.addKeys({
@@ -104,9 +112,9 @@ export default class Cena1 extends Phaser.Scene {
             // if sleep to the hero is removed, includes a glitch that makes you jump to the next level if you die and catch a potion in sequence
             if (this.player.hp <= 0) {
                 this.events.emit('died');
-                this.scene.start('Cena1');
+                this.scene.start('Cena3');
             }
-            else this.scene.start('Cena2');
+            else this.scene.start('CenaFinal');
         }, this);
 
         var particles = this.add.particles('blood');

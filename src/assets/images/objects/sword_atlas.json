@@ -1,10 +1,10 @@
 {
     "frames": [
         {
-            "filename": "pocao",
+            "filename": "sword",
             "frame": {
-                "w": 48,
-                "h": 24,
+                "w": 32,
+                "h": 32,
                 "x": 0,
                 "y": 0
             },

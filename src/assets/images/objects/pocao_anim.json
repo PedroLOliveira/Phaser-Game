@@ -1,7 +1,7 @@
 {
     "anims": [
         {
-            "key": "idle_potion",
+            "key": "idle_pocao",
             "type": "frames",
             "repeat": -1,
             "frameRate": 1,

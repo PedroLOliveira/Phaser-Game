@@ -1,12 +1,12 @@
 import Phaser from 'phaser';
-import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
 import CenaLoad from "./CenaLoad.js";
 import CenaMenu from "./CenaMenu.js";
-// import CenaIntro from "./CenaIntro.js";
+import CenaIntro from "./CenaIntro.js";
 import Cena1 from "./Cena1.js";
-// import Cena2 from "./Cena2.js";
-// import Cena3 from "./Cena3.js";
-
+import Cena2 from "./Cena2.js";
+import Cena3 from "./Cena3.js";
+import CenaUI from "./CenaUI.js";
+import CenaFinal from "./CenaFinal.js";
 
 const config = {
     width: 512,
@@ -17,10 +17,12 @@ const config = {
     scene: [
         CenaLoad,
         CenaMenu,
-        // CenaIntro,
-        Cena1//,
-        // Cena2,
-        // Cena3
+        CenaIntro,
+        Cena1,
+        Cena2,
+        Cena3,
+        CenaUI,
+        CenaFinal
     ],
     scale: {
         zoom: 1.2,
@@ -31,15 +33,6 @@ const config = {
             debug: true,
             gravity: {y:0}
         }
-    },
-    plugin: {
-        scene: [
-            {
-                plugin: PhaserMatterCollisionPlugin,
-                key: 'matterCollision',
-                mapping: 'matterCollision'
-            }
-        ]
     }
 }
 

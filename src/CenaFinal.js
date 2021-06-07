@@ -1,7 +1,7 @@
 
-export default class CenaIntro extends Phaser.Scene {
+export default class CenaFinal extends Phaser.Scene {
     constructor() {
-        super('CenaIntro');
+        super('CenaFinal');
     }
 
     preload() {
@@ -10,9 +10,9 @@ export default class CenaIntro extends Phaser.Scene {
 
     create () {
         var content = [
-            'No século XII, havia um reino chamado Castelópolis. Este reino era governado por um rei muito poderoso, seu nome era Baldomiro.',
-            'Certa vez na história, este reino em questão se encontrava em guerra com outros reinos da Europa. Em um momento de vulnerabilidade, um dos inimigos do mesmo contratou alguns assassinos para tentar se livrar do rei Baldomiro.',
-            'Ao realizar uma investida furtiva com intenção de eliminar nosso rei, este acaba ficando sem seus guardas reais. Com isso, ele se encontra em uma enorme jornada para retornar ao seu reino são e salvo.'
+            'Graças a você, o Rei Baldomiro conseguiu voltar ao seu castelo são e salvo.',
+            'Com a volta do Rei ao seu castelo, você concluiu o jogo.',
+            'Parabéns pela caminhada até aqui, foi uma ardua batalha, porém, vitoriosa.'
         ];
     
         var graphics = this.make.graphics();
@@ -33,12 +33,18 @@ export default class CenaIntro extends Phaser.Scene {
         });
 
         this.cameras.main.on('camerafadeoutcomplete', function () {
-            this.scene.start('Cena1');
+            this.scene.start('CenaMenu');
         }, this);
 
         this.input.keyboard.once('keydown', function () {
             this.cameras.main.fade(1000, 0, 0, 0);
         }, this);
+
+        content = [
+            'Idealização e desenvolvimento:',
+            'Pedro Lopes'
+        ];
+        this.add.text(100, 430, content, { fontFamily: 'Arial', color: '#ffffff', wordWrap: { width: 310 } }).setOrigin(0);
     }
 
     update () {

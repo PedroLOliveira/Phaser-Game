@@ -7,6 +7,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
 
         this.file = texture;
         this.hp = hp;
+        this.maxHP = 3;
         this.damage = damage;
 
         const { Body, Bodies } = Phaser.Physics.Matter.Matter;
@@ -29,14 +30,6 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         return this.body.velocity;
     }
 
-    get getHP() {
-        return this.hp;
-    }
-
-    set setHP(hp) {
-        this.hp = hp;
-    }
-
     get direction() {
         return this.body.x > 0 ? 'l' : 'r';
     }
@@ -51,21 +44,39 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
 
     increaseDamage(howMuch) {
         this.damage += howMuch;
+        this.scene.events.emit('increaseDamage');
     }
 
     heal(howMuch) {
-        this.hp += howMuch;
-        console.log('player healed by: ', howMuch);
+        this.hp = this.hp == this.maxHP ? this.maxHP : this.hp + howMuch;
+        console.log('player healed: ', howMuch);
+        console.log('HP: ', this.hp);
+        this.scene.events.emit('increaseHP');
     }
 
-    takeDamage(damage) {
-        this.hp -= damage;
+    takeDamage(damage, enemy) {
+        this.hp = this.hp == 0 ? 0 : this.hp - damage;
         if (this.hp <= 0) {
-            console.log('voce morreu');
+            console.log('you died');
+            this.scene.emitter.start();
+            this.scene.emitter.startFollow(this);
             this.anims.play('dead', true);
-            this.scene.scene.restart();
+            // removing sleep, includes a glitch to pass through the levels when death comes
+            this.setToSleep();
+            this.scene.cameras.main.fade(2000, 0, 0, 0);
         }
-        console.log('player damaged by: ' + damage);
+        console.log('damage suffered: ' + damage);
+        console.log('HP: ', this.hp);
+        this.scene.events.emit('decreaseHP');
+    }
+
+    doDamage() {
+        let damage = this.damage;
+        this.scene.enemies.map(function(enemy, i) {
+            if (enemy.isAttackable) {
+                enemy.takeDamage(damage, 1);
+            }
+        });
     }
 
     update() {
@@ -91,8 +102,12 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         if ((Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) && !this.inputKeys.attack.isDown && !this.anims.isPlaying) {
             this.anims.play('walk_' + this.direction, true); //verificar chain
         }
-        if (this.inputKeys.attack.isDown) {
+        if (Phaser.Input.Keyboard.JustDown(this.inputKeys.attack)) {
             this.anims.play('attack_' + this.direction, true);
+            this.doDamage();
+        }
+        if (this.scene.input.keyboard.checkDown(this.inputKeys.attack, 500))
+        {
             // this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
             //     this.doDamage();
             // }, this.scene);
@@ -100,10 +115,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
             //     this.doDamage();
             // }, this.scene);
         }
-        if (this.inputKeys.defense.isDown) {
-            this.setToSleep(false);
-        }
-        if (this.inputKeys.catch.isDown) {
+        if (Phaser.Input.Keyboard.JustDown(this.inputKeys.catch)) {
             console.log('catch item');
             this.anims.play('collect_' + this.direction, true);
         }
